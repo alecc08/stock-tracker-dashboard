@@ -1,4 +1,4 @@
-# Stock Tracker Dashboard [![Build Status](https://travis-ci.org/alecc08/stock-tracker-dashboard.svg?branch=master)](https://travis-ci.org/alecc08/stock-tracker-dashboard)
+# Stock Tracker Dashboard [![Build Status](https://travis-ci.org/alecc08/stock-tracker-dashboard.svg?branch=master)](https://travis-ci.org/alecc08/stock-tracker-dashboard) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a250102ac1b6430f9adee80730411b39)](https://www.codacy.com/app/alecc/stock-tracker-dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=alecc08/stock-tracker-dashboard&amp;utm_campaign=Badge_Grade)
 
 
 
