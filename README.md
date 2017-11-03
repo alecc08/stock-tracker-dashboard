@@ -1,6 +1,6 @@
 # Stock Tracker Dashboard [![Build Status](https://travis-ci.org/alecc08/stock-tracker-dashboard.svg?branch=master)](https://travis-ci.org/alecc08/stock-tracker-dashboard) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a250102ac1b6430f9adee80730411b39)](https://www.codacy.com/app/alecc/stock-tracker-dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=alecc08/stock-tracker-dashboard&amp;utm_campaign=Badge_Grade)
 
-
+[First Image](https://user-images.githubusercontent.com/14881741/32358840-8c4705c2-c01f-11e7-983d-861d469c02b7.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
