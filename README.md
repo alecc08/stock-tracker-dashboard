@@ -2,6 +2,8 @@
 
 ![image](https://user-images.githubusercontent.com/14881741/32408277-c7981876-c16b-11e7-8a7b-befc2977511a.png)
 
+This is a dashboard meant to integrate with my stock-tracker API: https://github.com/alecc08/stock-tracker
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
 ## Development server
