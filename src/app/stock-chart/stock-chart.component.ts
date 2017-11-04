@@ -19,7 +19,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   msgs: Message[];
 
   months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  colors = ["#cc3300", "#22cc08", "#1122CC"];
+  colors;
 
   constructor() { }
 
@@ -58,6 +58,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    this.colors = ["yellow", "orange", "violet", "black", "#cc3300", "#22cc08", "#1122CC" ];
     this.structuredData = this.convertDataForLineChart(this.data);
   }
 
