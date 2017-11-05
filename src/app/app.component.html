@@ -5,6 +5,6 @@
   </h1>
   <input name="stock" [(ngModel)]="stocks" type="text" /><br/>
   <input name="start" [(ngModel)]="start" type="text" /> <label>To</label>  <input name="end" [(ngModel)]="end" type="text" />
-  <button (click)="getStocks()">Send</button>
+  <button class="btn btn-primary" (click)="getStocks()">Send</button>
   <app-stock-chart [data]="myData"> </app-stock-chart>
 </div>

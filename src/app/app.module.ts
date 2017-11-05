@@ -7,6 +7,7 @@ import { StockChartComponent } from './stock-chart/stock-chart.component';
 import { ChartModule, GrowlModule } from 'primeng/primeng';
 import { HttpModule } from '@angular/http';
 import { StockService } from './stock.service';
+import { AlertModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { StockService } from './stock.service';
     ChartModule,
     GrowlModule,
     FormsModule,
+    AlertModule.forRoot(),
     HttpModule
   ],
   providers: [StockService],
