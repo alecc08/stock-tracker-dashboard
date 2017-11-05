@@ -8,7 +8,6 @@ import { StockService } from './stock.service';
 })
 export class AppComponent implements OnInit {
 
-  title = 'Stock Tracker 5000';
   myData;
 
   stocks: String = 'MSFT,GOOG';

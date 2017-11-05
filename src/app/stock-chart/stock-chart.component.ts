@@ -64,7 +64,9 @@ export class StockChartComponent implements OnInit, OnChanges {
 
   selectData(event) {
     this.msgs = [];
-    this.msgs.push({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]});
+    console.log(event);
+    this.msgs.push({severity: 'info', summary: this.structuredData.datasets[event.element._datasetIndex],
+                    detail: this.structuredData.datasets[event.element._datasetIndex].data[event.element._index]});
   }
 
   convertDataForLineChart(apiData): any {
