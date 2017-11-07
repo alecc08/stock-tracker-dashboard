@@ -36,6 +36,13 @@
 </nav>
 <div style="text-align:center">
   <label>Comma separated stocks:</label><input name="stock" [(ngModel)]="stocks" type="text" /> <label>From</label> <input name="start" [(ngModel)]="start" type="text" /> <label>To</label>  <input name="end" [(ngModel)]="end" type="text" />
-  <button class="btn btn-primary" (click)="getStocks()">Send</button>
-  <app-stock-chart width="90%" [data]="myData"> </app-stock-chart>
+  <button class="btn btn-primary" (click)="getStocks()">Send</button><br/>
+  <button class="btn btn-xs btn-secondary" (click)="adjustTime(1)">1d</button>
+  <button class="btn btn-xs btn-secondary" (click)="adjustTime(7)">7d</button>
+  <button class="btn btn-xs btn-secondary" (click)="adjustTime(31)">1m</button>
+  <button class="btn btn-xs btn-secondary" (click)="adjustTime(92)">3m</button>
+  <button class="btn btn-xs btn-secondary" (click)="adjustTime(183)">6m</button>
+  <button class="btn btn-xs btn-secondary" (click)="adjustTime(365)">1y</button>
+  <button class="btn btn-xs btn-secondary" (click)="adjustTime(1825)">5y</button>
+  <app-stock-chart [data]="myData"> </app-stock-chart>
 </div>

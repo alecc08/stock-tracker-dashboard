@@ -1,3 +1,7 @@
-<p-growl [value]="msgs"></p-growl>
-<label for="normalized">Normalized:</label><input [(ngModel)]="normalized" (change)="ngOnChanges()" type="checkbox" name="normalized"/>
-<p-chart type="line" [data]="structuredData" [options]="options" (onDataSelect)="selectData($event)"></p-chart>
+<div class="col-md-offset-1 col-md-10">
+  
+  <label for="normalized">Normalized:</label><input [(ngModel)]="normalized" (change)="ngOnChanges()" type="checkbox" name="normalized"/>
+  <!--p-chart type="line" [data]="structuredData" [options]="options" (onDataSelect)="selectData($event)"></p-chart-->
+
+  <canvas id="stockChart" width="400" height="200"></canvas>
+</div>

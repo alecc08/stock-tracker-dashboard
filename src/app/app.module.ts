@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { StockChartComponent } from './stock-chart/stock-chart.component';
-import { ChartModule, GrowlModule } from 'primeng/primeng';
 import { HttpModule } from '@angular/http';
 import { StockService } from './stock.service';
 import { AlertModule } from 'ngx-bootstrap';
@@ -16,8 +15,6 @@ import { AlertModule } from 'ngx-bootstrap';
   ],
   imports: [
     BrowserModule,
-    ChartModule,
-    GrowlModule,
     FormsModule,
     AlertModule.forRoot(),
     HttpModule

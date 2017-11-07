@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Message } from 'primeng/primeng';
+import * as Moment from 'moment';
+import * as _ from 'lodash';
+import * as $ from 'jquery';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-stock-chart',
@@ -16,63 +19,58 @@ export class StockChartComponent implements OnInit, OnChanges {
   defaults: any;
   normalized = true;
 
-  msgs: Message[];
-
-  months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  chartCtx;
+  myLineChart;
   colors;
 
-  constructor() { }
+  constructor() {
+    Chart.defaults.global.elements.point.radius = 1.5;
+    Chart.defaults.global.elements.line.tension = 0;
+  }
 
   ngOnInit() {
-    this.structuredData = {
-
-    };
-    this.options = {
-     scales: {
-       yAxes: [{
-          ticks: {
-            // Include a dollar sign in the ticks
-            callback: function(value, index, values) {
-                if (this.normalized) {
-                  return value + "%";
-                } else {
-                  return "$ " + value;
-                }
-            }.bind(this)
-          }
-       }]
-      }
-    };
-    this.defaults = {
-      global: {
-        elements: {
-          point: {
-            radius: 1
-          },
-          line: {
-            tension: 0
-          }
-        }
-      }
-    };
   }
 
   ngOnChanges() {
+    if (!this.myLineChart) {
+      this.chartCtx = $("#stockChart");
+      this.myLineChart = new Chart(this.chartCtx, {
+        type: 'line',
+        data: [],
+        options: {
+          spanGaps: true,
+          lineTension: 0,
+          fill: true,
+          pointRadius: 0,
+          elements: {
+            points: {
+              radius: 0
+            }
+          }
+        },
+        defaults: {
+          spanGaps: true,
+          lineTension: 0,
+          fill: true,
+          pointRadius: 0,
+          point: {
+            radius: 0
+          }
+        }
+      });
+      this.myLineChart.defaults.global.elements.points.radius = 0;
+    }
     this.colors = ["yellow", "orange", "violet", "black", "#cc3300", "#22cc08", "#1122CC" ];
     this.structuredData = this.convertDataForLineChart(this.data);
-  }
-
-  selectData(event) {
-    this.msgs = [];
-    console.log(event);
-    this.msgs.push({severity: 'info', summary: this.structuredData.datasets[event.element._datasetIndex],
-                    detail: this.structuredData.datasets[event.element._datasetIndex].data[event.element._index]});
+    if (this.structuredData) {
+      this.myLineChart.data = this.structuredData;
+      this.myLineChart.update();
+    }
   }
 
   convertDataForLineChart(apiData): any {
-    const labels = [];
     const dataSets = [];
-    let labelsSet = false;
+    const labels = this.generateDateLabels(this.findFullRangeOfData(apiData));
     Object.keys(apiData).forEach((stock) => {
       const dataSet = {
         label: stock,
@@ -81,21 +79,26 @@ export class StockChartComponent implements OnInit, OnChanges {
         borderColor : this.colors.pop(),
       };
       let firstVal;
+      let stockTimestamps = [];
       apiData[stock].forEach((element) => {
-        if (!firstVal) {
-          firstVal = element.close;
-        }
-        if (this.normalized) {
-          dataSet.data.push((element.close / firstVal - 1) * 100);
+        stockTimestamps.push(element.timestamp);
+      });
+      labels.forEach((label) => {
+        let stockIndex = stockTimestamps.indexOf(label);
+        if (stockIndex === -1) {
+          dataSet.data.push(NaN);
         } else {
-          dataSet.data.push(element.close);
-        }
-
-        if (!labelsSet) {
-          labels.push(labels.length % 4 ? '' : element.timestamp);
+          if (!firstVal) {
+            firstVal = apiData[stock][stockIndex].close;
+          }
+          if (this.normalized) {
+            dataSet.data.push((apiData[stock][stockIndex].close / firstVal - 1) * 100);
+          } else {
+            dataSet.data.push(apiData[stock][stockIndex].close);
+          }
         }
       });
-      labelsSet = true;
+      
       dataSets.push(dataSet);
     });
     return {
@@ -104,4 +107,41 @@ export class StockChartComponent implements OnInit, OnChanges {
     };
   }
 
+  findFullRangeOfData(data): any {
+    let start;
+    let end;
+
+    Object.keys(data).forEach((stock) => {
+      let currentStart = Moment(data[stock][0].timestamp, "YYYY-MM-DD").unix();
+      if (!start || start > currentStart) {
+        start = currentStart;
+      }
+      let currentEnd = Moment(data[stock][data[stock].length - 1].timestamp, "YYYY-MM-DD").unix();
+      if (!end || end < currentEnd) {
+        end = currentEnd;
+      }
+    });
+    return {
+      start: start,
+      end: end
+    };
+  }
+
+  generateDateLabels(range) {
+    let startDay = Moment.unix(range.start);
+    let endDay = Moment.unix(range.end);
+    let daysBetween = endDay.diff(startDay, 'days');
+    let labels = [];
+    labels.push(startDay.format("YYYY-MM-DD"));
+    for (let i = 0; i < daysBetween; i++) {
+      startDay = startDay.add(1, 'd');
+      labels.push(startDay.format("YYYY-MM-DD"));
+    }
+    return labels;
+
+  }
+
+  
+
 }
+
