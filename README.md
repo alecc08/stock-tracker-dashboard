@@ -1,6 +1,6 @@
 # Stock Tracker Dashboard [![Build Status](https://travis-ci.org/alecc08/stock-tracker-dashboard.svg?branch=master)](https://travis-ci.org/alecc08/stock-tracker-dashboard) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a250102ac1b6430f9adee80730411b39)](https://www.codacy.com/app/alecc/stock-tracker-dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=alecc08/stock-tracker-dashboard&amp;utm_campaign=Badge_Grade)
 
-![image](https://user-images.githubusercontent.com/14881741/32476836-15554e02-c348-11e7-8779-1d11efc8a8db.png)
+![image](https://user-images.githubusercontent.com/14881741/32587734-11e93ca6-c4d8-11e7-8b58-63feca74a085.png)
 
 This is a dashboard meant to integrate with my stock-tracker API: https://github.com/alecc08/stock-tracker
 

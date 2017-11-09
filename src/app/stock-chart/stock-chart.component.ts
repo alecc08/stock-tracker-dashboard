@@ -24,8 +24,10 @@ export class StockChartComponent implements OnInit, OnChanges {
   colors;
 
   constructor() {
-    Chart.defaults.global.elements.point.radius = 1.5;
-    Chart.defaults.global.elements.line.tension = 0;
+    Chart.defaults.global.elements.point.radius = 0.6; // How big points are
+    Chart.defaults.global.elements.point.hitRadius = 5; // Radius to trigger mouseOver on points
+    Chart.defaults.global.elements.line.tension = 0; // Make lines flat instead of curved
+    Chart.defaults.global.elements.line.borderWidth = 1; // Line thickness
   }
 
   ngOnInit() {
@@ -39,26 +41,18 @@ export class StockChartComponent implements OnInit, OnChanges {
         data: [],
         options: {
           spanGaps: true,
-          lineTension: 0,
+          showLines: true,
           fill: true,
+          borderWidth: 0.1,
+          lineWidth: 0.1,
           pointRadius: 0,
           elements: {
             points: {
               radius: 0
             }
           }
-        },
-        defaults: {
-          spanGaps: true,
-          lineTension: 0,
-          fill: true,
-          pointRadius: 0,
-          point: {
-            radius: 0
-          }
         }
       });
-      this.myLineChart.defaults.global.elements.points.radius = 0;
     }
     this.colors = ["yellow", "orange", "violet", "black", "#cc3300", "#22cc08", "#1122CC" ];
     this.structuredData = this.convertDataForLineChart(this.data);

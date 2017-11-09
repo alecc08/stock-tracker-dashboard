@@ -9,24 +9,37 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Stock Tracker 5000</a>
+      <a class="navbar-brand" href="#"><i class="fa fa-bar-chart"></i> Stock Tracker 5000</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Dashboard</a></li>
-        <li class="active"><a href="#">Stock Viewer</a></li>
+        <li><a href="#"><i class="fa fa-pie-chart"></i> Dashboard</a></li>
+        <li class="active"><a href="#"><i class="fa fa-line-chart"></i> Stock Viewer</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i> Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Portfolio</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">Add Stock Split</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account: <strong>Account 1</strong><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a (click)="selectAccount()"><i class="fa fa-dot-circle-o"></i> Account 1</a></li>
+            <li><a (click)="selectAccount()"><i class="fa fa-circle-o"></i> Account 2</a></li>
+            <li><a (click)="selectAccount()"><i class="fa fa-circle-o"></i> Account 3</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Portfolio: <strong>All</strong> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a (click)="selectPortfolio()"><i class="fa fa-dot-circle-o"></i> All</a></li>
+            <li><a (click)="selectPortfolio()"><i class="fa fa-circle-o"></i> TFSA</a></li>
+            <li><a (click)="selectPortfolio()"><i class="fa fa-circle-o"></i> RRSP</a></li>
           </ul>
         </li>
       </ul>
@@ -34,15 +47,4 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div style="text-align:center">
-  <label>Comma separated stocks:</label><input name="stock" [(ngModel)]="stocks" type="text" /> <label>From</label> <input name="start" [(ngModel)]="start" type="text" /> <label>To</label>  <input name="end" [(ngModel)]="end" type="text" />
-  <button class="btn btn-primary" (click)="getStocks()">Send</button><br/>
-  <button class="btn btn-xs btn-secondary" (click)="adjustTime(1)">1d</button>
-  <button class="btn btn-xs btn-secondary" (click)="adjustTime(7)">7d</button>
-  <button class="btn btn-xs btn-secondary" (click)="adjustTime(31)">1m</button>
-  <button class="btn btn-xs btn-secondary" (click)="adjustTime(92)">3m</button>
-  <button class="btn btn-xs btn-secondary" (click)="adjustTime(183)">6m</button>
-  <button class="btn btn-xs btn-secondary" (click)="adjustTime(365)">1y</button>
-  <button class="btn btn-xs btn-secondary" (click)="adjustTime(1825)">5y</button>
-  <app-stock-chart [data]="myData"> </app-stock-chart>
-</div>
+<router-outlet></router-outlet>

@@ -7,16 +7,33 @@ import { StockChartComponent } from './stock-chart/stock-chart.component';
 import { HttpModule } from '@angular/http';
 import { StockService } from './stock.service';
 import { AlertModule } from 'ngx-bootstrap';
+import { RouterModule, Routes } from '@angular/router';
+import { StockGraphPageComponent } from './stock-graph-page/stock-graph-page.component';
+
+const appRoutes: Routes = [
+  { path: 'dashboard', component: StockGraphPageComponent },
+  { path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
+  },
+  { path: '**', redirectTo: '/dashboard' }
+];
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    StockChartComponent
+    StockChartComponent,
+    StockGraphPageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AlertModule.forRoot(),
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
     HttpModule
   ],
   providers: [StockService],
