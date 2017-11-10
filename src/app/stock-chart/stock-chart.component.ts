@@ -92,7 +92,6 @@ export class StockChartComponent implements OnInit, OnChanges {
           }
         }
       });
-      
       dataSets.push(dataSet);
     });
     return {
@@ -102,23 +101,24 @@ export class StockChartComponent implements OnInit, OnChanges {
   }
 
   findFullRangeOfData(data): any {
-    let start;
-    let end;
-
-    Object.keys(data).forEach((stock) => {
-      let currentStart = Moment(data[stock][0].timestamp, "YYYY-MM-DD").unix();
-      if (!start || start > currentStart) {
-        start = currentStart;
-      }
-      let currentEnd = Moment(data[stock][data[stock].length - 1].timestamp, "YYYY-MM-DD").unix();
-      if (!end || end < currentEnd) {
-        end = currentEnd;
-      }
-    });
-    return {
-      start: start,
-      end: end
-    };
+    if (data) {
+      let start;
+      let end;
+      Object.keys(data).forEach((stock) => {
+        let currentStart = Moment(data[stock][0].timestamp, "YYYY-MM-DD").unix();
+        if (!start || start > currentStart) {
+          start = currentStart;
+        }
+        let currentEnd = Moment(data[stock][data[stock].length - 1].timestamp, "YYYY-MM-DD").unix();
+        if (!end || end < currentEnd) {
+          end = currentEnd;
+        }
+      });
+      return {
+        start: start,
+        end: end
+      };
+    }
   }
 
   generateDateLabels(range) {

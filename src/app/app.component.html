@@ -9,19 +9,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><i class="fa fa-bar-chart"></i> Stock Tracker 5000</a>
+      <a class="navbar-brand" routerLink="/" routerLinkActive="active"><i class="fa fa-bar-chart"></i> Stock Tracker 5000</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#"><i class="fa fa-pie-chart"></i> Dashboard</a></li>
-        <li class="active"><a href="#"><i class="fa fa-line-chart"></i> Stock Viewer</a></li>
-        <li class="dropdown">
+        <li routerLinkActive="active"><a routerLink="/dashboard" ><i class="fa fa-pie-chart"></i> Dashboard</a></li>
+        <li routerLinkActive="active"><a routerLink="/stocks" ><i class="fa fa-line-chart"></i> Stock Viewer</a></li>
+        <li class="dropdown" routerLinkActive="active">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i> Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Account</a></li>
-            <li><a href="#">Portfolio</a></li>
+            <li routerLinkActive="active"><a routerLink="/accounts">Account</a></li>
+            <li routerLinkActive="active"><a routerLink="/portfolios">Portfolio</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Add Stock Split</a></li>
           </ul>

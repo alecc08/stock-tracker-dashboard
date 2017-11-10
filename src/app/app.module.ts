@@ -9,9 +9,15 @@ import { StockService } from './stock.service';
 import { AlertModule } from 'ngx-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 import { StockGraphPageComponent } from './stock-graph-page/stock-graph-page.component';
+import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import { ManageAccountPageComponent } from './manage-account-page/manage-account-page.component';
+import { ManagePortfolioPageComponent } from './manage-portfolio-page/manage-portfolio-page.component';
 
 const appRoutes: Routes = [
-  { path: 'dashboard', component: StockGraphPageComponent },
+  { path: 'dashboard', component: DashboardPageComponent },
+  { path: 'stocks', component: StockGraphPageComponent },
+  { path: 'accounts', component: ManageAccountPageComponent },
+  { path: 'portfolios', component: ManagePortfolioPageComponent },
   { path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full'
@@ -24,7 +30,10 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     StockChartComponent,
-    StockGraphPageComponent
+    StockGraphPageComponent,
+    DashboardPageComponent,
+    ManageAccountPageComponent,
+    ManagePortfolioPageComponent
   ],
   imports: [
     BrowserModule,
