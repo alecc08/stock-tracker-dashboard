@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
+  selectedAccounts: any[];
+  selectedPortfolios: any[];
+
   constructor() {
 
   }
@@ -14,5 +17,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
   }
 
+  selectAccount() {
+
+  }
+  selectPortfolio() {
+    
+  }
 
 }
