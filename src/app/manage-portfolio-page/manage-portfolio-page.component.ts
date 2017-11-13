@@ -9,6 +9,12 @@ import { AccountService } from '../services/account.service';
 })
 export class ManagePortfolioPageComponent implements OnInit {
 
+  buy: Boolean = true;
+  symbol: String;
+  quantity: Number;
+  price: Number;
+  date: String;
+
   portfolioId;
 
   portfolio;
@@ -21,6 +27,12 @@ export class ManagePortfolioPageComponent implements OnInit {
     this.accountService.getPortfolio(this.portfolioId).then((portfolio) => {
       this.portfolio = portfolio;
     });
+  }
+
+  buyOrSell() {
+      this.accountService.buySellStock(this.portfolioId, this.symbol, this.buy ? this.quantity : -this.quantity , this.price, this.date).then((res) => {
+        alert("Successfully bought/sold stocks.");
+      });
   }
 
 }

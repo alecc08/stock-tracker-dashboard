@@ -5,7 +5,28 @@
     <li *ngFor="let stock of portfolio.stocks"></li>
   </ul>
 
-  <button class="btn btn-primary">Buy Stocks</button>
-  <button class="btn btn-warning">Sell Stocks</button>
+  <button class="btn btn-primary" (click)="buy = true" data-toggle="modal" data-target="#buyStockModal">Buy Stocks</button>
+  <button class="btn btn-warning" (click)="buy = false" data-toggle="modal" data-target="#buyStockModal">Sell Stocks</button>
 
+</div>
+
+<div class="modal fade" id="buyStockModal" tabindex="-1" role="dialog" aria-labelledby="buyStockModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="buyStockModalLabel">{{buy ? "Buy" : "Sell"}} stock</h4>
+      </div>
+      <div class="modal-body">
+        <label for="stockSymbol">Stock symbol:</label><input class="form-control" placeholder="(MSFT, GOOG, AAPL, etc.)" type="text" name="stockSymbol" [(ngModel)]="symbol"/>
+        <label for="quantity">Quantity:</label><input class="form-control" placeholder="How many shares?" type="text" name="quantity" [(ngModel)]="quantity"/>
+        <label for="price">Price: $</label><input class="form-control" placeholder="Price per share (12.34)" type="text" name="price" [(ngModel)]="price"/>
+        <label for="date">{{buy ? "Purchase" : "Sell"}} date:</label><input class="form-control" placeholder="2017-01-01" type="text" name="date" [(ngModel)]="date"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="closePortfolioModal" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" (click)="addPortfolio()" class="btn btn-primary" data-dismiss="modal" (click)="buyOrSell()">{{buy ? "Buy" : "Sell"}}</button>
+      </div>
+    </div>
+  </div>
 </div>

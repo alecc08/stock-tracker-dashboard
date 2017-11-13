@@ -60,6 +60,29 @@ export class AccountService {
     .catch(this.handleError);
   }
 
+  buySellStock(symbol, quantity, price, date, portfolioId): Promise<any> {
+    console.log("Buying stock: " + symbol);
+    let found;
+    this.accounts.forEach((account) => {
+      account.portfolios.forEach((portfolio) => {
+        if (portfolio.id === portfolioId) {
+          found = portfolio;
+          if (!portfolio.stocks) {
+            portfolio.stocks = [];
+          }
+          // Push new stock if new symbol ELSE update existing qty and add/remove earnings...
+          portfolio.stocks.push({
+
+          });
+        }
+      });
+    });
+    return this.http.put(this.apiUrl + 'portfolios', found,
+      {headers: new Headers({'Content-Type': 'application/json'})}).toPromise()
+    .then(response => response.json())
+    .catch(this.handleError);
+  }
+
   private handleError(err) {
     alert("ERROR: " + err);
   }
