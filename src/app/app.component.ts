@@ -12,7 +12,7 @@ export class AppComponent implements OnInit, OnChanges {
   selectedPortfolio: any;
   selectedAccount: any;
 
-  constructor(private accountService: AccountService) {
+  constructor(public accountService: AccountService) {
 
   }
 

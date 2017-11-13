@@ -19,7 +19,7 @@ export class ManagePortfolioPageComponent implements OnInit {
 
   portfolio;
 
-  constructor(private route: ActivatedRoute, private accountService: AccountService) { }
+  constructor(private route: ActivatedRoute, public accountService: AccountService) { }
 
   ngOnInit() {
     this.portfolioId = this.route.snapshot.paramMap.get('id');

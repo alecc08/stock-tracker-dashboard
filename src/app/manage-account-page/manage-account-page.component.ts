@@ -15,7 +15,7 @@ export class ManageAccountPageComponent implements OnInit {
 
   selectedAccountId;
 
-  constructor(private accountService: AccountService) {
+  constructor(public accountService: AccountService) {
 
   }
 
