@@ -1,3 +1,11 @@
-<p>
-  manage-portfolio-page works!
-</p>
+<div class="col-md-8 col-md-offset-2">
+  <h3>Manage Portfolio: {{portfolio.type}}</h3>
+
+  <ul>
+    <li *ngFor="let stock of portfolio.stocks"></li>
+  </ul>
+
+  <button class="btn btn-primary">Buy Stocks</button>
+  <button class="btn btn-warning">Sell Stocks</button>
+
+</div>

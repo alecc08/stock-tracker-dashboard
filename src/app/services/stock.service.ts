@@ -15,18 +15,6 @@ export class StockService {
     .catch(this.handleError);
   }
 
-  getAccounts(): Promise<any[]> {
-    return this.http.get(this.apiUrl + 'accounts').toPromise()
-    .then(response => response.json())
-    .catch(this.handleError);
-  }
-
-  createAccount(accountName): Promise<any[]> {
-    return this.http.post(this.apiUrl + 'accounts', {accountName: accountName}).toPromise()
-    .then(response => response.json())
-    .catch(this.handleError);
-  }
-
   private handleError(err) {
     alert("ERROR: " + err);
   }

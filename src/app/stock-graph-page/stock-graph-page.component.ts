@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StockService } from '../stock.service';
+import { StockService } from '../services/stock.service';
 import * as Moment from 'moment';
 
 @Component({
