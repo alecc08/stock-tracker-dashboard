@@ -14,13 +14,6 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account: <strong>{{selectedAccount ? selectedAccount.name : "None"}}</strong><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-
-            <li *ngFor="let account of accountService.accounts" (click)="selectAccount(account)"><a>{{account.name}}</a></li>
-          </ul>
-        </li>
         <li routerLinkActive="active"><a routerLink="/dashboard" ><i class="fa fa-pie-chart"></i> Dashboard</a></li>
         <li routerLinkActive="active"><a routerLink="/stocks" ><i class="fa fa-line-chart"></i> Stock Viewer</a></li>
         <li class="dropdown" routerLinkActive="active">
@@ -31,10 +24,7 @@
               <li><a href="#">Add Stock Split</a></li>
             </ul>
           </li>
-        
-        
       </ul>
-     
     </div>
   </div>
 </nav>

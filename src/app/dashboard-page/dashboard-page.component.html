@@ -1,13 +1,27 @@
 <div class="col-md-10 col-md-offset-1">
   <h1>Dashboard</h1>
+
+    <button class="btn btn-default dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account: <strong>{{selectedAccount ? selectedAccount.name : "None"}}</strong><span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li *ngFor="let account of accountService.accounts" (click)="selectAccount(account)"><a>{{account.name}}</a></li>
+      </ul>
+    </button>
     <table class="table table-bordered">
       <thead>
-        
+          <tr><th colspan="4">Overall</th></tr>
       </thead>
       <tbody>
-        <tr ><td class="success">Profits <i class="fa fa-arrow-up profit"></i></td><td class="danger">Losses <i class="fa fa-arrow-down loss"></i></td></tr>
-        <tr><td>Break even</td></tr>
-        <tr class="danger"><td>Losses <i class="fa fa-arrow-down loss"></i></td></tr>
+        <tr *ngFor="let stockInfo of getCombinedTableData()"><td class="success">Profits <i class="fa fa-arrow-up profit"></i></td><td class="danger">Losses <i class="fa fa-arrow-down loss"></i></td></tr>
       </tbody>
     </table>
+
+    <table *ngFor="let portfolio of selectedAccount.portfolios" class="table table-bordered">
+        <thead>
+          <tr><th colspan="4">{{portfolio.name}}</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stockInfo of getTableData(portfolio)"><td class="success">Profits <i class="fa fa-arrow-up profit"></i></td><td class="danger">Losses <i class="fa fa-arrow-down loss"></i></td></tr>
+        </tbody>
+      </table>
 </div>

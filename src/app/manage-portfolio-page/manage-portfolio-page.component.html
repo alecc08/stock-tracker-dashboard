@@ -2,7 +2,7 @@
   <h3>Manage Portfolio: {{portfolio.type}}</h3>
 
   <ul>
-    <li *ngFor="let stock of portfolio.stocks"></li>
+    <li *ngFor="let stock of portfolio.stocks">{{stock | json}}</li>
   </ul>
 
   <button class="btn btn-primary" (click)="buy = true" data-toggle="modal" data-target="#buyStockModal">Buy Stocks</button>
@@ -25,7 +25,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="closePortfolioModal" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" (click)="addPortfolio()" class="btn btn-primary" data-dismiss="modal" (click)="buyOrSell()">{{buy ? "Buy" : "Sell"}}</button>
+        <button type="button" (click)="buyOrSellStock()" class="btn btn-primary" data-dismiss="modal">{{buy ? "Buy" : "Sell"}}</button>
       </div>
     </div>
   </div>

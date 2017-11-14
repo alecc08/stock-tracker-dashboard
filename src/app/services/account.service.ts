@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import * as Moment from 'moment';
 
 @Injectable()
 export class AccountService {
@@ -15,10 +16,12 @@ export class AccountService {
   constructor(private http: Http) { }
 
   getAccounts(): Promise<any[]> {
-    this.http.get(this.apiUrl + 'accounts').toPromise()
-    .then(response => { this.accounts = response.json(); })
+    return this.http.get(this.apiUrl + 'accounts').toPromise()
+    .then(response => {
+      this.accounts = response.json();
+      return this.accounts;
+    })
     .catch(this.handleError);
-    return this.accounts;
   }
 
   createAccount(accountName): Promise<any> {
@@ -60,24 +63,21 @@ export class AccountService {
     .catch(this.handleError);
   }
 
-  buySellStock(symbol, quantity, price, date, portfolioId): Promise<any> {
-    console.log("Buying stock: " + symbol);
-    let found;
-    this.accounts.forEach((account) => {
-      account.portfolios.forEach((portfolio) => {
-        if (portfolio.id === portfolioId) {
-          found = portfolio;
-          if (!portfolio.stocks) {
-            portfolio.stocks = [];
-          }
-          // Push new stock if new symbol ELSE update existing qty and add/remove earnings...
-          portfolio.stocks.push({
+  buySellStock(portfolio, symbol, quantity, price, date): Promise<any> {
+    console.log("Buying stock: " + symbol + " for portfolioId:" + portfolio.id);
 
-          });
-        }
-      });
+    if (!portfolio.stocks) {
+      portfolio.stocks = [];
+    }
+    // Push new stock if new symbol ELSE update existing qty and add/remove earnings...
+    portfolio.stocks.push({
+      portfolioId: portfolio.id,
+      symbol: symbol,
+      purchaseQuantity: quantity,
+      purchasePrice: price,
+      purchaseTime: Moment(date, "YYYY-MM-DD").unix()
     });
-    return this.http.put(this.apiUrl + 'portfolios', found,
+    return this.http.put(this.apiUrl + 'portfolios', {portfolio: portfolio},
       {headers: new Headers({'Content-Type': 'application/json'})}).toPromise()
     .then(response => response.json())
     .catch(this.handleError);

@@ -25,10 +25,6 @@ export class AppComponent implements OnInit, OnChanges {
     this.accountService.getAccounts();
   }
 
-  selectAccount(account) {
-    this.selectedAccount = account;
-  }
-
   handleError(err) {
     console.log(err);
   }

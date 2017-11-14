@@ -17,7 +17,7 @@ export class ManagePortfolioPageComponent implements OnInit {
 
   portfolioId;
 
-  portfolio;
+  portfolio = {};
 
   constructor(private route: ActivatedRoute, public accountService: AccountService) { }
 
@@ -29,8 +29,8 @@ export class ManagePortfolioPageComponent implements OnInit {
     });
   }
 
-  buyOrSell() {
-      this.accountService.buySellStock(this.portfolioId, this.symbol, this.buy ? this.quantity : -this.quantity , this.price, this.date).then((res) => {
+  buyOrSellStock() {
+      this.accountService.buySellStock(this.portfolio, this.symbol, this.buy ? this.quantity : -this.quantity , this.price, this.date).then((res) => {
         alert("Successfully bought/sold stocks.");
       });
   }
