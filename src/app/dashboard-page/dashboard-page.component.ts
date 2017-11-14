@@ -9,7 +9,7 @@ import { AccountService } from '../services/account.service';
 export class DashboardPageComponent implements OnInit {
 
   accounts;
-  selectedAccount;
+  selectedAccount = {};
 
   constructor(public accountService: AccountService) { }
 
@@ -22,6 +22,14 @@ export class DashboardPageComponent implements OnInit {
 
   selectAccount(account) {
     this.selectedAccount = account;
+  }
+
+  getCombinedTableData() {
+    return [];
+  }
+
+  getTableData(portfolio) {
+    return [];
   }
 
 }
