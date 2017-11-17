@@ -17,7 +17,7 @@ export class ManagePortfolioPageComponent implements OnInit {
 
   portfolioId;
 
-  portfolio = {};
+  portfolio: any = {};
 
   constructor(private route: ActivatedRoute, public accountService: AccountService) { }
 

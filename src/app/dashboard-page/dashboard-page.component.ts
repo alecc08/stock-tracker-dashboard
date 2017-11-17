@@ -9,7 +9,7 @@ import { AccountService } from '../services/account.service';
 export class DashboardPageComponent implements OnInit {
 
   accounts;
-  selectedAccount = {};
+  selectedAccount: any = {};
 
   constructor(public accountService: AccountService) { }
 
