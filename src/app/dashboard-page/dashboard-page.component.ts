@@ -59,9 +59,6 @@ export class DashboardPageComponent implements OnInit {
     let arr = [];
     this.timeComparisonInMonths.forEach((time) => {
       for (let i = 0; i < stocks.length; i++) {
-        console.log(stocks[i].timestamp);
-        console.log(stock.purchaseTime);
-        console.log(Moment.unix(stocks[i].timestamp).diff(Moment.unix(stock.purchaseTime), 'days'));
         if (Moment.unix(stocks[i].timestamp).diff(Moment.unix(stock.purchaseTime), 'days') > (30 * time)) {
           arr.push({text: Math.round((stocks[i].close - stock.purchasePrice) * 100 / 100).toFixed(2), title: "Amount of profit in " + time + " month(s)"});
           break;

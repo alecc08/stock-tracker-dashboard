@@ -4,7 +4,7 @@
         <button class="btn btn-default dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account: <strong>{{selectedAccount ? selectedAccount.name : "None"}}</strong><span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li *ngFor="let account of accountService.accounts" (click)="selectAccount(account)"><a>{{account.name}}</a></li>
+              <li *ngFor="let account of accounts" (click)="selectAccount(account)"><a>{{account.name}}</a></li>
             </ul>
           </button>
           <div class="checkbox"><label><input name="inPercentCK" type="checkbox" [(ngModel)]="inPct" (change)="refreshTableData()"/> Display as %</label></div>
