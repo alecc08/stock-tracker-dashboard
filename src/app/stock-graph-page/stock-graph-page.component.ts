@@ -11,7 +11,6 @@ export class StockGraphPageComponent implements OnInit {
 
 
   myData;
-  loading = false;
 
   stocks: String = 'MSFT,GOOG';
   start = "2017-01-20";
@@ -26,12 +25,10 @@ export class StockGraphPageComponent implements OnInit {
   }
 
   getStocks() {
-    this.loading = true;
     this.stockService.getStockData(this.stocks, this.start, this.end).then((data) => this.updateData(data));
   }
 
   updateData(data) {
-    this.loading = false;
     this.myData = data;
   }
 

@@ -5,3 +5,7 @@
 .loss {
     color: #7C0000;
 }
+
+td {
+    white-space: pre;
+}

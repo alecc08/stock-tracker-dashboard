@@ -19,6 +19,7 @@ export class AccountService {
     return this.http.get(this.apiUrl + 'accounts').toPromise()
     .then(response => {
       this.accounts = response.json();
+      console.log(this.accounts);
       return this.accounts;
     })
     .catch(this.handleError);

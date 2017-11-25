@@ -65,6 +65,7 @@ export class StockChartComponent implements OnInit, OnChanges {
   convertDataForLineChart(apiData): any {
     const dataSets = [];
     const labels = this.generateDateLabels(this.findFullRangeOfData(apiData));
+    console.log(JSON.stringify(labels));
     Object.keys(apiData).forEach((stock) => {
       const dataSet = {
         label: stock,
@@ -75,7 +76,7 @@ export class StockChartComponent implements OnInit, OnChanges {
       let firstVal;
       let stockTimestamps = [];
       apiData[stock].forEach((element) => {
-        stockTimestamps.push(element.timestamp);
+        stockTimestamps.push(Moment.unix(element.timestamp).format("YYYY-MM-DD"));
       });
       labels.forEach((label) => {
         let stockIndex = stockTimestamps.indexOf(label);
@@ -105,15 +106,17 @@ export class StockChartComponent implements OnInit, OnChanges {
       let start;
       let end;
       Object.keys(data).forEach((stock) => {
-        let currentStart = Moment(data[stock][0].timestamp, "YYYY-MM-DD").unix();
+        let currentStart = data[stock][0].timestamp;
         if (!start || start > currentStart) {
           start = currentStart;
         }
-        let currentEnd = Moment(data[stock][data[stock].length - 1].timestamp, "YYYY-MM-DD").unix();
+        let currentEnd = data[stock][data[stock].length - 1].timestamp;
         if (!end || end < currentEnd) {
           end = currentEnd;
         }
       });
+      console.log("Start:" + start);
+      console.log("End:" + end);
       return {
         start: start,
         end: end
@@ -122,20 +125,21 @@ export class StockChartComponent implements OnInit, OnChanges {
   }
 
   generateDateLabels(range) {
-    let startDay = Moment.unix(range.start);
-    let endDay = Moment.unix(range.end);
-    let daysBetween = endDay.diff(startDay, 'days');
+    // TODO Refactor this disgusting function
+    let startDay = range.start;
+    let endDay = range.end;
+    let daysBetween = Moment.unix(endDay).diff(Moment.unix(startDay), 'days');
+    console.log("Days between:" + daysBetween);
     let labels = [];
-    labels.push(startDay.format("YYYY-MM-DD"));
+    labels.push(Moment.unix(startDay).format("YYYY-MM-DD"));
+    startDay = Moment.unix(startDay).format("YYYY-MM-DD");
     for (let i = 0; i < daysBetween; i++) {
-      startDay = startDay.add(1, 'd');
-      labels.push(startDay.format("YYYY-MM-DD"));
+      startDay = Moment(startDay, "YYYY-MM-DD").add(1, 'd').format("YYYY-MM-DD");
+      labels.push(startDay);
     }
     return labels;
 
   }
-
-  
 
 }
 

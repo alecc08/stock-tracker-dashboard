@@ -19,7 +19,7 @@
           <div class="panel-body">
             <h5>Portfolios <button type="button" style="float:right" data-toggle="modal" (click)="selectAccountId(account.id)" data-target="#myPortfolioModal" class="btn btn-xs btn-success"><i class="fa fa-plus-circle"></i> Add</button></h5>
             <ul>
-              <li *ngFor="let portfolio of account.portfolios"><a routerLink="/portfolio/{{portfolio.id}}">{{portfolio.name}}</a></li>  
+              <li *ngFor="let portfolio of account.portfolios"><a routerLink="/portfolio/{{portfolio.id}}">{{portfolio.type}}</a></li>  
             </ul>
           </div>
         </div>

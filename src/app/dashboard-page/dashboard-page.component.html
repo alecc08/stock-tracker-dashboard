@@ -1,24 +1,33 @@
 <div class="col-md-10 col-md-offset-1">
   <h1>Dashboard</h1>
-
-    <button class="btn btn-default dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account: <strong>{{selectedAccount ? selectedAccount.name : "None"}}</strong><span class="caret"></span></a>
-      <ul class="dropdown-menu">
-        <li *ngFor="let account of accountService.accounts" (click)="selectAccount(account)"><a>{{account.name}}</a></li>
-      </ul>
-    </button>
-    <table class="table table-bordered">
+    <div class="form-group">
+        <button class="btn btn-default dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account: <strong>{{selectedAccount ? selectedAccount.name : "None"}}</strong><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li *ngFor="let account of accountService.accounts" (click)="selectAccount(account)"><a>{{account.name}}</a></li>
+            </ul>
+          </button>
+          <div class="checkbox"><label><input name="inPercentCK" type="checkbox" [(ngModel)]="inPct" (change)="refreshTableData()"/> Display as %</label></div>
+    </div>
+    
+    <table class="table table-bordered table-hover">
       <thead>
-          <tr><th colspan="4">Overall</th></tr>
+          <tr><th [attr.colspan]="timeComparisonInMonths.length + 2">Overall</th></tr>
+          <tr><th>Stock</th><th>Total</th><th *ngFor="let time of timeComparisonInMonths">{{time}} month{{time > 1 ? "s" : ""}}</th></tr>
       </thead>
       <tbody>
-        <tr *ngFor="let stockInfo of getCombinedTableData()"><td class="success">Profits <i class="fa fa-arrow-up profit"></i></td><td class="danger">Losses <i class="fa fa-arrow-down loss"></i></td></tr>
+        <tr *ngFor="let stockInfo of allTableData">
+
+          <td [ngClass]="{'success': stockCell.text >= 0, 'danger': stockCell.text < 0, 'text-right': isNum(stockCell.text)}" *ngFor="let stockCell of stockInfo" title="{{stockCell.title}}"
+            >{{stockCell.text}} {{isNum(stockCell.text) ? (inPct ? "%" : "$") : ""}}  <i *ngIf="isNum(stockCell.text)" [ngClass]="{'fa-arrow-up profit': stockCell.text >= 0, 'fa-arrow-down loss': stockCell.text < 0}" class="fa"></i></td>
+        </tr>
       </tbody>
     </table>
 
     <table *ngFor="let portfolio of selectedAccount.portfolios" class="table table-bordered">
         <thead>
-          <tr><th colspan="4">{{portfolio.name}}</th></tr>
+          <tr><th [attr.colspan]="timeComparisonInMonths.length + 2">{{portfolio.name}}</th></tr>
+          <tr><th>Stock</th><th>Total</th><th *ngFor="let time of timeComparisonInMonths">{{time}} month{{time > 1 ? "s" : ""}}</th></tr>
         </thead>
         <tbody>
           <tr *ngFor="let stockInfo of getTableData(portfolio)"><td class="success">Profits <i class="fa fa-arrow-up profit"></i></td><td class="danger">Losses <i class="fa fa-arrow-down loss"></i></td></tr>
