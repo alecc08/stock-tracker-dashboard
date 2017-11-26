@@ -40,11 +40,12 @@ export class DashboardPageComponent implements OnInit {
           this.stockService.getStockData(stockSymbol.symbol, Moment.unix(stockSymbol.purchaseTime).format("YYYY-MM-DD"), Moment().format("YYYY-MM-DD")).then((stocks) => {
             if (stocks[stockSymbol.symbol]) {
               const numStocks = stocks[stockSymbol.symbol].length;
+              const currentPrice = stocks[stockSymbol.symbol][numStocks - 1].close;
               this.allTableData[portfolio.id].push([
                 {text: stockSymbol.symbol, title: "Some title"},
                 {text: this.getProfit(stocks[stockSymbol.symbol][numStocks - 1].close, stockSymbol.purchasePrice),
                   title: "Profit since " + Moment.unix(stockSymbol.purchaseTime).format("YYYY-MM-DD")},
-                ...this.generateProfitArray(stockSymbol, stocks[stockSymbol.symbol])]);
+                ...this.generateProfitArray(stockSymbol, stocks[stockSymbol.symbol], currentPrice)]);
             }
           });
         });
@@ -60,12 +61,12 @@ export class DashboardPageComponent implements OnInit {
     }
   }
 
-  generateProfitArray(stock, stocks): Number[] {
+  generateProfitArray(stock, stockHistory, currentPrice): Number[] {
     let arr = [];
     this.timeComparisonInMonths.forEach((time) => {
-      for (let i = 0; i < stocks.length; i++) {
-        if (Moment.unix(stocks[i].timestamp).diff(Moment.unix(stock.purchaseTime), 'days') > (30 * time)) {
-          arr.push({text: this.getProfit(stocks[i].close, stock.purchasePrice), title: "Amount of profit in " + time + " month(s)"});
+      for (let i = 0; i < stockHistory.length; i++) {
+        if (Moment.unix(stockHistory[i].timestamp).diff(Moment.unix(stock.purchaseTime), 'days') > (30 * time)) {
+          arr.push({text: this.getProfit(stockHistory[i].close, currentPrice), title: "Amount of profit since " + time + " month(s)"});
           break;
         }
       }
