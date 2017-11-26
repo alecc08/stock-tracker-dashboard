@@ -12,7 +12,7 @@ export class DashboardPageComponent implements OnInit {
 
   accounts;
   selectedAccount: any = {};
-  allTableData: any = [];
+  allTableData: any = {};
   inPct = true; // Display amount in percent gains
 
   timeComparisonInMonths = [1, 2, 3, 4, 5, 6, 12];
@@ -28,30 +28,35 @@ export class DashboardPageComponent implements OnInit {
 
   selectAccount(account) {
     this.selectedAccount = account;
+    this.allTableData = {};
     this.refreshTableData();
   }
 
   refreshTableData() {
-    let allStocks = {};
-    this.allTableData = [];
     if (this.selectedAccount && this.selectedAccount.portfolios) {
       this.selectedAccount.portfolios.forEach(portfolio => {
-        portfolio.stocks.forEach(stock => {
-          allStocks[stock.symbol] = stock;
+        this.allTableData[portfolio.id] = [];
+        portfolio.stocks.forEach((stockSymbol) => {
+          this.stockService.getStockData(stockSymbol.symbol, Moment.unix(stockSymbol.purchaseTime).format("YYYY-MM-DD"), Moment().format("YYYY-MM-DD")).then((stocks) => {
+            if (stocks[stockSymbol.symbol]) {
+              const numStocks = stocks[stockSymbol.symbol].length;
+              this.allTableData[portfolio.id].push([
+                {text: stockSymbol.symbol, title: "Some title"},
+                {text: this.getProfit(stocks[stockSymbol.symbol][numStocks - 1].close, stockSymbol.purchasePrice),
+                  title: "Profit since " + Moment.unix(stockSymbol.purchaseTime).format("YYYY-MM-DD")},
+                ...this.generateProfitArray(stockSymbol, stocks[stockSymbol.symbol])]);
+            }
+          });
         });
       });
-      Object.keys(allStocks).forEach((stockSymbol) => {
-        this.stockService.getStockData(stockSymbol, Moment.unix(allStocks[stockSymbol].purchaseTime).format("YYYY-MM-DD"), Moment().format("YYYY-MM-DD")).then((stocks) => {
-          const stock = allStocks[stockSymbol];
-          console.log(stocks);
-          const numStocks = stocks[stockSymbol].length;
-          this.allTableData.push([
-            {text: stockSymbol, title: "Some title"},
-            {text: (stocks[stockSymbol][numStocks - 1].close / stock.purchasePrice * 100).toFixed(2), title: "Profit since purchase date"},
-            ...this.generateProfitArray(stock, stocks[stockSymbol])]);
-        });
-      });
-      console.log(JSON.stringify(allStocks));
+    }
+  }
+
+  getProfit(price1, price2) {
+    if (this.inPct) {
+      return ((price1 - price2) / price1 * 100).toFixed(2);
+    } else {
+      return (price1 - price2).toFixed(2);
     }
   }
 
@@ -60,14 +65,14 @@ export class DashboardPageComponent implements OnInit {
     this.timeComparisonInMonths.forEach((time) => {
       for (let i = 0; i < stocks.length; i++) {
         if (Moment.unix(stocks[i].timestamp).diff(Moment.unix(stock.purchaseTime), 'days') > (30 * time)) {
-          arr.push({text: Math.round((stocks[i].close - stock.purchasePrice) * 100 / 100).toFixed(2), title: "Amount of profit in " + time + " month(s)"});
+          arr.push({text: this.getProfit(stocks[i].close, stock.purchasePrice), title: "Amount of profit in " + time + " month(s)"});
           break;
         }
       }
     });
     if (arr.length < this.timeComparisonInMonths.length) {
-      for (let i = 0; i < this.timeComparisonInMonths.length - arr.length; i++) {
-        arr.push({text: "--"});
+      while (arr.length < this.timeComparisonInMonths.length) {
+        arr.push({text: "-"});
       }
     }
     return arr;
@@ -75,10 +80,6 @@ export class DashboardPageComponent implements OnInit {
 
   isNum(obj) {
     return !isNaN(obj);
-  }
-
-  getTableData(portfolioId) {
-    return [];
   }
 
 }

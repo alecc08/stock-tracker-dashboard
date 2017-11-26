@@ -9,28 +9,18 @@
           </button>
           <div class="checkbox"><label><input name="inPercentCK" type="checkbox" [(ngModel)]="inPct" (change)="refreshTableData()"/> Display as %</label></div>
     </div>
-    
-    <table class="table table-bordered table-hover">
+
+    <table *ngFor="let portfolio of selectedAccount.portfolios" class="table table-bordered">
       <thead>
-          <tr><th [attr.colspan]="timeComparisonInMonths.length + 2">Overall</th></tr>
-          <tr><th>Stock</th><th>Total</th><th *ngFor="let time of timeComparisonInMonths">{{time}} month{{time > 1 ? "s" : ""}}</th></tr>
+        <tr><th [attr.colspan]="timeComparisonInMonths.length + 2"><h3>{{portfolio.type}}</h3></th></tr>
+        <tr><th>Stock</th><th>Total</th><th *ngFor="let time of timeComparisonInMonths">{{time}} month{{time > 1 ? "s" : ""}}</th></tr>
       </thead>
       <tbody>
-        <tr *ngFor="let stockInfo of allTableData">
-
-          <td [ngClass]="{'success': stockCell.text >= 0, 'danger': stockCell.text < 0, 'text-right': isNum(stockCell.text)}" *ngFor="let stockCell of stockInfo" title="{{stockCell.title}}"
+        <tr *ngFor="let stockInfo of allTableData[portfolio.id]">
+          <td *ngIf="stockInfo.length === 1" [attr.colspan]="timeComparisonInMonths.length + 2"><div class="spinner"></div></td>
+          <td [ngClass]="{'success': stockCell.text >= 0, 'danger': stockCell.text < 0, 'text-right': isNum(stockCell.text), 'disabled': !isNum(stockCell.text)}" *ngFor="let stockCell of stockInfo" title="{{stockCell.title}}"
             >{{stockCell.text}} {{isNum(stockCell.text) ? (inPct ? "%" : "$") : ""}}  <i *ngIf="isNum(stockCell.text)" [ngClass]="{'fa-arrow-up profit': stockCell.text >= 0, 'fa-arrow-down loss': stockCell.text < 0}" class="fa"></i></td>
         </tr>
       </tbody>
     </table>
-
-    <table *ngFor="let portfolio of selectedAccount.portfolios" class="table table-bordered">
-        <thead>
-          <tr><th [attr.colspan]="timeComparisonInMonths.length + 2">{{portfolio.name}}</th></tr>
-          <tr><th>Stock</th><th>Total</th><th *ngFor="let time of timeComparisonInMonths">{{time}} month{{time > 1 ? "s" : ""}}</th></tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let stockInfo of getTableData(portfolio)"><td class="success">Profits <i class="fa fa-arrow-up profit"></i></td><td class="danger">Losses <i class="fa fa-arrow-down loss"></i></td></tr>
-        </tbody>
-      </table>
 </div>

@@ -1,12 +1,30 @@
 <div class="col-md-8 col-md-offset-2">
   <h3>Manage Portfolio: {{portfolio.type}}</h3>
 
-  <ul>
-    <li *ngFor="let stock of portfolio.stocks">{{stock | json}}</li>
-  </ul>
+  <button class="btn btn-primary" (click)="setModalFields(true)" data-toggle="modal" data-target="#buyStockModal">Buy Stocks</button>
+  <button class="btn btn-warning" (click)="setModalFields(false)" data-toggle="modal" data-target="#buyStockModal">Sell Stocks</button>
 
-  <button class="btn btn-primary" (click)="buy = true" data-toggle="modal" data-target="#buyStockModal">Buy Stocks</button>
-  <button class="btn btn-warning" (click)="buy = false" data-toggle="modal" data-target="#buyStockModal">Sell Stocks</button>
+  <table class="table table-bordered">
+      <thead>
+        <tr><th>Stock</th><th>Purchase Date</th><th>Quantity</th><th>Purchase Price</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of portfolio.stocks">
+          <td>{{stock.symbol}}</td>
+          <td>{{formatDate(stock.purchaseTime)}}</td>
+          <td>{{stock.quantity}}</td>
+          <td style="text-align:right"><strong>$ {{stock.purchasePrice | number:'1.2-2'}}</strong></td>
+          <td>
+            <button class="btn btn-xs btn-success" (click)="setModalFields(true, stock.symbol, stock.quantity, formatDate(stock.purchaseTime), stock.purchasePrice)" 
+              data-toggle="modal" data-target="#buyStockModal"><i title="Buy More" class="fa fa-plus-circle"></i>
+            </button>
+            <button class="btn btn-xs btn-danger" (click)="setModalFields(false, stock.symbol, stock.quantity, formatDate(stock.purchaseTime), stock.purchasePrice)"
+              data-toggle="modal" data-target="#buyStockModal"><i title="Sell" class="fa fa-minus-circle"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
 </div>
 
