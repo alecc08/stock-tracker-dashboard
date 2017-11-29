@@ -30,7 +30,7 @@ export class ManagePortfolioPageComponent implements OnInit {
     });
   }
 
-  setModalFields(buy, stock, qty, time, price) {
+  setModalFields(buy, stock?, qty?, time?, price?) {
     this.buy = buy;
     this.symbol = stock;
     this.quantity = qty;
